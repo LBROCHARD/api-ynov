@@ -1,0 +1,14 @@
+{
+  "name": "api",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "LBROCHARD <73283488+LBROCHARD@users.noreply.github.com>",
+  "license": "MIT",
+  "type": "module",
+  "dependencies": {
+    "nodemon": "^2.0.20"
+  },
+  "scripts": {
+    "dev": "node server-raw.js"
+  }
+}
