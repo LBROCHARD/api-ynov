@@ -9,9 +9,20 @@ const tasksSchema = new Schema({
     },
     done: {
         type: Boolean,
+    },
+    list: {
+        type: Schema.Types.ObjectId,
+        required: true,
+        ref: 'List'
     }
 })
 
-const Task = mongoose.model('Task', tasksSchema)
+tasksSchema.static({
+    findByListId (listId) {
+      return this.find({ list: listId })
+    }
+})
 
-export default Task
+const TaskModel = mongoose.model('Task', tasksSchema)
+
+export default TaskModel

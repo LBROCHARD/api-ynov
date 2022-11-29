@@ -1,14 +1,24 @@
 import Router from '@koa/router'
 import * as TaskControllers from '#components/task/task-controller.js'
+import { isAuthenticatedWithUser } from '#middlewares/jwt-handler.js'
 
-const taskRouter = new Router()
+const tasks = new Router()
 
-taskRouter.get('/task', TaskControllers.index)
-taskRouter.post('/task', (ctx)=>{
-    TaskControllers.create(ctx)
+tasks.get('/task/', TaskControllers.index)
+
+tasks.get('/task/protected', isAuthenticatedWithUser, (ctx) => {
+    ctx.body = ctx.state.user.generateJWT()
+    ctx.ok({
+        message: 'This route is protected',
+        user: ctx.state.user
+    })
 })
-taskRouter.get('/task/:id', TaskControllers.findById)
-taskRouter.delete('/task/:id', TaskControllers.deleteById)
-taskRouter.put('/task/:id', TaskControllers.put)
 
-export default taskRouter
+tasks.get('/task/:id', TaskControllers.findById)
+tasks.get('/lists/:listId', TaskControllers.getAllByList)
+tasks.post('/task', TaskControllers.create)
+tasks.delete('/task/:id', TaskControllers.deleteById)
+tasks.put('/task/:id', TaskControllers.put)
+
+
+export default tasks

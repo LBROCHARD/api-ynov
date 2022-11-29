@@ -1,4 +1,6 @@
 import '#config/database.js'
+import '#config/maildev.js'
+import Exemple from '#components/exemple/exemple-model.js'
 import Koa from 'koa'
 import bodyParser from 'koa-bodyparser'
 import respond from 'koa-respond'
